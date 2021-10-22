@@ -56,7 +56,7 @@ function Modal(props: ModalProps) {
         ) : inIframe() ? (
           <div
             className={`walletconnect-modal__mobile__toggle${
-              displayQRCode ? " right__selected" : ""
+              !displayQRCode ? " right__selected" : ""
             }`}
           >
             <div className="walletconnect-modal__mobile__toggle_selector" />
