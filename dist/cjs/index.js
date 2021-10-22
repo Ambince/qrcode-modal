@@ -284,6 +284,14 @@ function QRCodeDisplay(props) {
   }));
 }
 
+function inIframe() {
+  try {
+    return window.self !== window.top;
+  } catch (e) {
+    return true;
+  }
+}
+
 function Modal(props) {
   var mobile = isMobile();
   var ref = React.useState(!mobile);
@@ -308,6 +316,14 @@ function Modal(props) {
   }), React.createElement("a", {
     onClick: function () { return setDisplayQRCode(false); }
   }, props.text.mobile), React.createElement("a", {
+    onClick: function () { return setDisplayQRCode(true); }
+  }, props.text.qrcode)) : inIframe() ? React.createElement("div", {
+    className: ("walletconnect-modal__mobile__toggle" + (displayQRCode ? " right__selected" : ""))
+  }, React.createElement("div", {
+    className: "walletconnect-modal__mobile__toggle_selector"
+  }), React.createElement("a", {
+    onClick: function () { return setDisplayQRCode(false); }
+  }, props.text.desktop), React.createElement("a", {
     onClick: function () { return setDisplayQRCode(true); }
   }, props.text.qrcode)) : React.createElement("div", {
     className: ("walletconnect-modal__mobile__toggle" + (!displayQRCode ? " right__selected" : ""))
