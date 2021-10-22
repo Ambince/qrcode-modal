@@ -322,10 +322,10 @@ function Modal(props) {
   }, React.createElement("div", {
     className: "walletconnect-modal__mobile__toggle_selector"
   }), React.createElement("a", {
-    onClick: function () { return setDisplayQRCode(false); }
-  }, props.text.desktop), React.createElement("a", {
     onClick: function () { return setDisplayQRCode(true); }
-  }, props.text.qrcode)) : React.createElement("div", {
+  }, props.text.qrcode), React.createElement("a", {
+    onClick: function () { return setDisplayQRCode(false); }
+  }, props.text.desktop)) : React.createElement("div", {
     className: ("walletconnect-modal__mobile__toggle" + (!displayQRCode ? " right__selected" : ""))
   }, React.createElement("div", {
     className: "walletconnect-modal__mobile__toggle_selector"
