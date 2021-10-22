@@ -318,7 +318,7 @@ function Modal(props) {
   }, props.text.mobile), React.createElement("a", {
     onClick: function () { return setDisplayQRCode(true); }
   }, props.text.qrcode)) : inIframe() ? React.createElement("div", {
-    className: ("walletconnect-modal__mobile__toggle" + (!displayQRCode ? " right__selected" : ""))
+    className: ("walletconnect-modal__mobile__toggle" + (displayQRCode ? " right__selected" : ""))
   }, React.createElement("div", {
     className: "walletconnect-modal__mobile__toggle_selector"
   }), React.createElement("a", {
