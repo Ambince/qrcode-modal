@@ -60,8 +60,8 @@ function Modal(props: ModalProps) {
             }`}
           >
             <div className="walletconnect-modal__mobile__toggle_selector" />
-            <a onClick={() => setDisplayQRCode(false)}>{props.text.desktop}</a>
-            <a onClick={() => setDisplayQRCode(true)}>{props.text.qrcode}</a>
+            <a onClick={() => setDisplayQRCode(true)}>{props.text.desktop}</a>
+            <a onClick={() => setDisplayQRCode(false)}>{props.text.qrcode}</a>
           </div>
         ) : (
           <div
