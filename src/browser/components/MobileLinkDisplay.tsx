@@ -13,12 +13,20 @@ import WalletIcon from "./WalletIcon";
 import { TextMap } from "../types";
 import { setLocal, MOBILE_LINK_LOCALSTORAGE_KEY, isIOS } from "../utils";
 
-function formatIOSMobile(uri: string, entry: MobileRegistryEntry) {
+function formatIOSMobile(
+  uri: string,
+  entry: MobileRegistryEntry,
+  host?: string
+) {
   const encodedUri: string = encodeURIComponent(uri);
   return entry.universalLink
-    ? `${entry.universalLink}/wc?uri=${encodedUri}&host=${document.domain}`
+    ? `${entry.universalLink}/wc?uri=${encodedUri}${
+        host ? "&host=" + host : ""
+      }`
     : entry.deepLink
-    ? `${entry.deepLink}${entry.deepLink.endsWith(":") ? "//" : "/"}wc?uri=${encodedUri}&host=${document.domain}`
+    ? `${entry.deepLink}${
+        entry.deepLink.endsWith(":") ? "//" : "/"
+      }wc?uri=${encodedUri}${host ? "&host=" + host : ""}`
     : "";
 }
 
@@ -29,7 +37,7 @@ function saveMobileLinkInfo(data: IMobileLinkInfo) {
 
 function getMobileRegistryEntry(name: string): MobileRegistryEntry {
   return MOBILE_REGISTRY.filter((entry: MobileRegistryEntry) =>
-    entry.name.toLowerCase().includes(name),
+    entry.name.toLowerCase().includes(name)
   )[0];
 }
 
@@ -40,7 +48,9 @@ function getMobileLinkRegistry(qrcodeModalOptions?: QRCodeModalOptions) {
     qrcodeModalOptions.mobileLinks &&
     qrcodeModalOptions.mobileLinks.length
   ) {
-    links = qrcodeModalOptions.mobileLinks.map((name: string) => getMobileRegistryEntry(name));
+    links = qrcodeModalOptions.mobileLinks.map((name: string) =>
+      getMobileRegistryEntry(name)
+    );
   }
   return links;
 }
@@ -53,6 +63,7 @@ interface MobileLinkDisplayProps {
   qrcodeModalOptions?: QRCodeModalOptions;
   text: TextMap;
   uri: string;
+  host?: string;
 }
 
 const GRID_MIN_COUNT = 5;
@@ -65,11 +76,15 @@ function MobileLinkDisplay(props: MobileLinkDisplayProps) {
   const grid = links.length > GRID_MIN_COUNT;
   const pages = Math.ceil(links.length / LINKS_PER_PAGE);
   const range = [(page - 1) * LINKS_PER_PAGE + 1, page * LINKS_PER_PAGE];
-  const pageLinks = links.filter((_, index) => index + 1 >= range[0] && index + 1 <= range[1]);
+  const pageLinks = links.filter(
+    (_, index) => index + 1 >= range[0] && index + 1 <= range[1]
+  );
   return (
     <div>
       <p id={WALLETCONNECT_CTA_TEXT_ID} className="walletconnect-qrcode__text">
-        {ios ? props.text.choose_preferred_wallet : props.text.connect_mobile_wallet}
+        {ios
+          ? props.text.choose_preferred_wallet
+          : props.text.connect_mobile_wallet}
       </p>
       <div
         className={`walletconnect-connect__buttons__wrapper${
@@ -79,7 +94,7 @@ function MobileLinkDisplay(props: MobileLinkDisplayProps) {
         {ios ? (
           pageLinks.map((entry: MobileRegistryEntry) => {
             const { color, name, shortName, logo } = entry;
-            const href = formatIOSMobile(props.uri, entry);
+            const href = formatIOSMobile(props.uri, entry, props.host);
             const handleClickIOS = React.useCallback(() => {
               saveMobileLinkInfo({
                 name,
@@ -127,7 +142,10 @@ function MobileLinkDisplay(props: MobileLinkDisplayProps) {
               const selected = page === pageNumber;
               return (
                 <a
-                  style={{ margin: "auto 10px", fontWeight: selected ? "bold" : "normal" }}
+                  style={{
+                    margin: "auto 10px",
+                    fontWeight: selected ? "bold" : "normal",
+                  }}
                   onClick={() => setPage(pageNumber)}
                 >
                   {pageNumber}

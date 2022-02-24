@@ -17,6 +17,7 @@ interface ModalProps {
   uri: string;
   onClose: any;
   qrcodeModalOptions?: QRCodeModalOptions;
+  host?: string;
 }
 
 function inIframe() {
@@ -34,6 +35,7 @@ function Modal(props: ModalProps) {
     text: props.text,
     uri: props.uri,
     qrcodeModalOptions: props.qrcodeModalOptions,
+    host: props.host
   };
 
   return (
