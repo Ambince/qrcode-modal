@@ -8,12 +8,12 @@ const isNode = () =>
   typeof process.versions !== "undefined" &&
   typeof process.versions.node !== "undefined";
 
-function open(uri: string, cb: any, qrcodeModalOptions?: QRCodeModalOptions) {
+function open(uri: string, cb: any, qrcodeModalOptions?: QRCodeModalOptions, host?: string) {
   console.log(uri); // eslint-disable-line no-console
   if (isNode()) {
     nodeLib.open(uri);
   } else {
-    browserLib.open(uri, cb, qrcodeModalOptions);
+    browserLib.open(uri, cb, qrcodeModalOptions, host);
   }
 }
 
