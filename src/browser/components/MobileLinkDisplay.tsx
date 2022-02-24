@@ -53,7 +53,6 @@ interface MobileLinkDisplayProps {
   qrcodeModalOptions?: QRCodeModalOptions;
   text: TextMap;
   uri: string;
-  host: string;
 }
 
 const GRID_MIN_COUNT = 5;
