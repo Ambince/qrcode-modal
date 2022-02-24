@@ -135,9 +135,9 @@ function setLocal(key, data) {
 }
 var MOBILE_LINK_LOCALSTORAGE_KEY = "WALLETCONNECT_PERSISTED_MOBILE_LINK_CHOICE";
 
-function formatIOSMobile(uri, entry) {
+function formatIOSMobile(uri, entry, host) {
   var encodedUri = encodeURIComponent(uri);
-  return entry.universalLink ? ((entry.universalLink) + "/wc?uri=" + encodedUri + "&host=" + (document.domain)) : entry.deepLink ? ("" + (entry.deepLink) + (entry.deepLink.endsWith(":") ? "//" : "/") + "wc?uri=" + encodedUri + "&host=" + (document.domain)) : "";
+  return entry.universalLink ? ((entry.universalLink) + "/wc?uri=" + encodedUri + (host ? "&host=" + host : "")) : entry.deepLink ? ("" + (entry.deepLink) + (entry.deepLink.endsWith(":") ? "//" : "/") + "wc?uri=" + encodedUri + (host ? "&host=" + host : "")) : "";
 }
 
 function saveMobileLinkInfo(data) {
@@ -183,7 +183,7 @@ function MobileLinkDisplay(props) {
     var name = entry.name;
     var shortName = entry.shortName;
     var logo = entry.logo;
-    var href = formatIOSMobile(props.uri, entry);
+    var href = formatIOSMobile(props.uri, entry, props.host);
     var handleClickIOS = React.useCallback(function () {
       saveMobileLinkInfo({
         name: name,
@@ -300,7 +300,8 @@ function Modal(props) {
   var displayProps = {
     text: props.text,
     uri: props.uri,
-    qrcodeModalOptions: props.qrcodeModalOptions
+    qrcodeModalOptions: props.qrcodeModalOptions,
+    host: props.host
   };
   return React.createElement("div", {
     id: WALLETCONNECT_MODAL_ID,

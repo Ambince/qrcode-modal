@@ -5,6 +5,7 @@ interface MobileLinkDisplayProps {
     qrcodeModalOptions?: QRCodeModalOptions;
     text: TextMap;
     uri: string;
+    host?: string;
 }
 declare function MobileLinkDisplay(props: MobileLinkDisplayProps): JSX.Element;
 export default MobileLinkDisplay;
