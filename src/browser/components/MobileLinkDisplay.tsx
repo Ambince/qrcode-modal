@@ -16,9 +16,9 @@ import { setLocal, MOBILE_LINK_LOCALSTORAGE_KEY, isIOS } from "../utils";
 function formatIOSMobile(uri: string, entry: MobileRegistryEntry) {
   const encodedUri: string = encodeURIComponent(uri);
   return entry.universalLink
-    ? `${entry.universalLink}/wc?uri=${encodedUri}`
+    ? `${entry.universalLink}/wc?uri=${encodedUri}&host=${document.domain}`
     : entry.deepLink
-    ? `${entry.deepLink}${entry.deepLink.endsWith(":") ? "//" : "/"}wc?uri=${encodedUri}`
+    ? `${entry.deepLink}${entry.deepLink.endsWith(":") ? "//" : "/"}wc?uri=${encodedUri}&host=${document.domain}`
     : "";
 }
 
@@ -53,6 +53,7 @@ interface MobileLinkDisplayProps {
   qrcodeModalOptions?: QRCodeModalOptions;
   text: TextMap;
   uri: string;
+  host: string;
 }
 
 const GRID_MIN_COUNT = 5;
