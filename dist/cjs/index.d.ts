@@ -1,5 +1,5 @@
 import { QRCodeModalOptions } from "./browser/types";
-declare function open(uri: string, cb: any, qrcodeModalOptions?: QRCodeModalOptions): void;
+declare function open(uri: string, cb: any, qrcodeModalOptions?: QRCodeModalOptions, host?: string): void;
 declare function close(): void;
 declare const _default: {
     open: typeof open;

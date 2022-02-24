@@ -489,12 +489,13 @@ function getText() {
   return languages[lang] || languages["en"];
 }
 
-function open$1(uri, cb, qrcodeModalOptions) {
+function open$1(uri, cb, qrcodeModalOptions, host) {
   injectStyleSheet();
   var wrapper = renderWrapper();
   React.render(React.createElement(Modal, {
     text: getText(),
     uri: uri,
+    host: host,
     onClose: getWrappedCallback(cb),
     qrcodeModalOptions: qrcodeModalOptions
   }), wrapper);
@@ -505,13 +506,13 @@ function close$1() {
 
 var isNode = function () { return typeof process !== "undefined" && typeof process.versions !== "undefined" && typeof process.versions.node !== "undefined"; };
 
-function open$2(uri, cb, qrcodeModalOptions) {
+function open$2(uri, cb, qrcodeModalOptions, host) {
   console.log(uri);
 
   if (isNode()) {
     open(uri);
   } else {
-    open$1(uri, cb, qrcodeModalOptions);
+    open$1(uri, cb, qrcodeModalOptions, host);
   }
 }
 
