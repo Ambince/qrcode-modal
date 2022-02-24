@@ -137,7 +137,7 @@ var MOBILE_LINK_LOCALSTORAGE_KEY = "WALLETCONNECT_PERSISTED_MOBILE_LINK_CHOICE";
 
 function formatIOSMobile(uri, entry) {
   var encodedUri = encodeURIComponent(uri);
-  return entry.universalLink ? ((entry.universalLink) + "/wc?uri=" + encodedUri) : entry.deepLink ? ("" + (entry.deepLink) + (entry.deepLink.endsWith(":") ? "//" : "/") + "wc?uri=" + encodedUri) : "";
+  return entry.universalLink ? ((entry.universalLink) + "/wc?uri=" + encodedUri + "&host=" + (document.domain)) : entry.deepLink ? ("" + (entry.deepLink) + (entry.deepLink.endsWith(":") ? "//" : "/") + "wc?uri=" + encodedUri + "&host=" + (document.domain)) : "";
 }
 
 function saveMobileLinkInfo(data) {
