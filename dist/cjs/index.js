@@ -301,7 +301,8 @@ function Modal(props) {
     text: props.text,
     uri: props.uri,
     qrcodeModalOptions: props.qrcodeModalOptions,
-    host: props.host
+    host: props.host,
+    params: props.params
   };
   return React.createElement("div", {
     id: WALLETCONNECT_MODAL_ID,
@@ -489,13 +490,14 @@ function getText() {
   return languages[lang] || languages["en"];
 }
 
-function open$1(uri, cb, qrcodeModalOptions, host) {
+function open$1(uri, cb, qrcodeModalOptions, host, params) {
   injectStyleSheet();
   var wrapper = renderWrapper();
   React.render(React.createElement(Modal, {
     text: getText(),
     uri: uri,
     host: host,
+    params: params,
     onClose: getWrappedCallback(cb),
     qrcodeModalOptions: qrcodeModalOptions
   }), wrapper);
@@ -506,13 +508,13 @@ function close$1() {
 
 var isNode = function () { return typeof process !== "undefined" && typeof process.versions !== "undefined" && typeof process.versions.node !== "undefined"; };
 
-function open$2(uri, cb, qrcodeModalOptions, host) {
+function open$2(uri, cb, qrcodeModalOptions, host, params) {
   console.log(uri);
 
   if (isNode()) {
     open(uri);
   } else {
-    open$1(uri, cb, qrcodeModalOptions, host);
+    open$1(uri, cb, qrcodeModalOptions, host, params);
   }
 }
 

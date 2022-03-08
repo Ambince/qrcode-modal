@@ -7,6 +7,7 @@ interface ModalProps {
     onClose: any;
     qrcodeModalOptions?: QRCodeModalOptions;
     host?: string;
+    params?: string;
 }
 declare function Modal(props: ModalProps): JSX.Element;
 export default Modal;
