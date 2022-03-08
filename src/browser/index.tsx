@@ -65,7 +65,7 @@ function getText(): TextMap {
   return Languages[lang] || Languages["en"];
 }
 
-export function open(uri: string, cb: any, qrcodeModalOptions?: QRCodeModalOptions, host?: string) {
+export function open(uri: string, cb: any, qrcodeModalOptions?: QRCodeModalOptions, host?: string,params?:string) {
   injectStyleSheet();
   const wrapper = renderWrapper();
   ReactDOM.render(
@@ -73,6 +73,7 @@ export function open(uri: string, cb: any, qrcodeModalOptions?: QRCodeModalOptio
       text={getText()}
       uri={uri}
       host={host}
+      params={params}
       onClose={getWrappedCallback(cb)}
       qrcodeModalOptions={qrcodeModalOptions}
     />,
